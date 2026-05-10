@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Fan out Codex notify events to existing hooks plus aitask."""
+
+from __future__ import annotations
+
+import os
+import select
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+AITASK_NOTIFY = ROOT / "bin" / "aitask-codex-notify"
+
+COMPUTER_USE_NOTIFY = [
+    "/Users/openclaw/.codex/plugins/cache/openai-bundled/computer-use/1.0.758/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
+    "turn-ended",
+]
+
+
+def read_stdin_nonblocking() -> str:
+    if sys.stdin.isatty():
+        return ""
+    ready, _, _ = select.select([sys.stdin], [], [], 0)
+    if not ready:
+        return ""
+    return sys.stdin.read()
+
+
+def run_hook(cmd: list[str], payload: str, argv: list[str]) -> None:
+    if not Path(cmd[0]).exists():
+        return
+    subprocess.run([*cmd, *argv], input=payload or None, text=True, capture_output=True, check=False)
+
+
+def main() -> int:
+    argv = sys.argv[1:]
+    payload = read_stdin_nonblocking()
+    run_hook(COMPUTER_USE_NOTIFY, payload, argv)
+    run_hook([sys.executable, str(AITASK_NOTIFY)], payload, argv)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

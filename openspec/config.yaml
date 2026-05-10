@@ -1,0 +1,34 @@
+schema: spec-driven
+
+context: |
+  本项目的 OpenSpec artifacts 默认使用简体中文撰写。
+
+  写作约定：
+  - proposal、design、tasks 的正文、解释、决策、任务描述使用简体中文。
+  - specs 的需求描述、场景名称、WHEN/THEN 内容使用简体中文。
+  - OpenSpec 需要解析的结构关键字保持原样，不翻译：
+    - `## ADDED Requirements`
+    - `## MODIFIED Requirements`
+    - `## REMOVED Requirements`
+    - `## RENAMED Requirements`
+    - `### Requirement:`
+    - `#### Scenario:`
+    - `- [ ] 1.1 ...`
+  - capability 名称、change 名称、文件路径、命令、环境变量、代码符号、enum/status 值保持英文或 kebab-case。
+  - 如果中文表达和机器可解析格式冲突，优先保证 OpenSpec 格式可解析。
+
+rules:
+  proposal:
+    - 默认使用简体中文撰写 proposal 内容。
+    - capability 标识必须使用英文 kebab-case。
+    - 保留模板中的结构标题，除非该标题不影响 OpenSpec 解析。
+  specs:
+    - 默认使用简体中文撰写需求说明、场景名称和 WHEN/THEN 内容。
+    - 保留 `## ADDED Requirements`、`### Requirement:`、`#### Scenario:` 等 OpenSpec 解析关键字。
+    - 规范性关键词 `SHALL` 和 `MUST` 保持英文。
+  design:
+    - 默认使用简体中文撰写设计背景、目标、决策、风险和迁移计划。
+    - 命令、路径、API 名称、配置键和代码符号保持英文。
+  tasks:
+    - 默认使用简体中文撰写任务分组和任务描述。
+    - 保留 checkbox 和编号格式，例如 `- [ ] 1.1 ...`。
