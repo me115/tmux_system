@@ -4,7 +4,21 @@
 
 ## 安装入口
 
-当前 repo 提供两个入口：
+复制仓库到新机器后，在仓库根目录执行：
+
+```bash
+scripts/install.sh
+```
+
+如果不需要飞书通知：
+
+```bash
+scripts/install.sh --no-feishu
+```
+
+更多选项见 [install.md](install.md)。
+
+当前 repo 提供三个命令入口：
 
 ```bash
 /Users/Shared/openclaw-share/repos/tmux_system/bin/aitask
@@ -12,7 +26,7 @@
 /Users/Shared/openclaw-share/repos/tmux_system/bin/codex-notify-dispatch
 ```
 
-当前机器已经把它们软链接到 PATH 内的：
+安装脚本默认会把它们软链接到 PATH 内的：
 
 ```bash
 /Users/openclaw/.openclaw/bin/aitask
